@@ -74,13 +74,18 @@ def format_response(data):
     if not isinstance(data, dict):
         return str(data)
 
-    # Check for specific structure: file_name, links (common in file hosters)
-    if 'file_name' in data and 'links' in data:
+    # Check for specific structure: file_name/title, links (common in file hosters)
+    if ('file_name' in data or 'title' in data) and 'links' in data:
         lines = []
         if 'file_name' in data:
             lines.append(f"<b>File Name:</b> <code>{html.escape(str(data['file_name']))}</code>")
+        elif 'title' in data:
+            lines.append(f"<b>Title:</b> <code>{html.escape(str(data['title']))}</code>")
+
         if 'file_size' in data:
              lines.append(f"<b>File Size:</b> <code>{html.escape(str(data['file_size']))}</code>")
+        elif 'size' in data:
+             lines.append(f"<b>Size:</b> <code>{html.escape(str(data['size']))}</code>")
 
         lines.append("") # Spacer
 
