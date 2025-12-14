@@ -100,6 +100,15 @@ def format_response(data):
 
         return "\n".join(lines)
 
+    # Check for specific structure: success, count, links
+    if 'success' in data and 'count' in data and 'links' in data:
+        lines = []
+        if isinstance(data['links'], list):
+            lines.append("<b>Links:</b>")
+            for item in data['links']:
+                lines.append(f"- {html.escape(str(item))}")
+        return "\n".join(lines)
+
     # Generic Fallback for other APIs
     lines = []
     for key, value in data.items():
