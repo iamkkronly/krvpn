@@ -34,7 +34,7 @@ def proxy(url):
         resp = requests.request(
             method=request.method,
             url=target_url,
-            headers={key: value for (key, value) in request.headers if key != 'Host'},
+            headers={key: value for (key, value) in request.headers if key.lower() not in ['host', 'accept-encoding']},
             data=request.get_data(),
             cookies=request.cookies,
             allow_redirects=True
